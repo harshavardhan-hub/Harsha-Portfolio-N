@@ -1,0 +1,27 @@
+
+> portfolio@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+
+./src/components/ui/ScrollyCanvas.tsx
+86:8  Warning: React Hook useEffect has missing dependencies: 'renderFrame' and 'scrollYProgress'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+101:8  Warning: React Hook useEffect has missing dependencies: 'renderFrame' and 'scrollYProgress'. Either include them or remove the dependency array.  react-hooks/exhaustive-deps
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+unhandledRejection Error [PageNotFoundError]: Cannot find module for page: /_document
+    at getPagePath (C:\Users\yanak\Desktop\UI.Learning\PF 2\portfolio\node_modules\next\dist\server\require.js:94:15)
+    at requirePage (C:\Users\yanak\Desktop\UI.Learning\PF 2\portfolio\node_modules\next\dist\server\require.js:99:22)
+    at C:\Users\yanak\Desktop\UI.Learning\PF 2\portfolio\node_modules\next\dist\server\load-components.js:72:65
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (C:\Users\yanak\Desktop\UI.Learning\PF 2\portfolio\node_modules\next\dist\server\load-components.js:71:33)
+    at async Object.hasCustomGetInitialProps (C:\Users\yanak\Desktop\UI.Learning\PF 2\portfolio\node_modules\next\dist\build\utils.js:1274:24) {
+  type: 'PageNotFoundError',
+  code: 'ENOENT'
+}
