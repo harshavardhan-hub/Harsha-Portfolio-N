@@ -1,7 +1,7 @@
 "use client";
 
 import { useScroll, useMotionValueEvent } from "framer-motion";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { loadImagesChunk } from "@/utils/image-loader";
 
 interface ScrollyCanvasProps {
