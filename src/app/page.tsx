@@ -24,6 +24,7 @@ export default function Home() {
       duration: 1.5,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
       smoothWheel: true,
+      touchMultiplier: 0.8, // Reduced sensitivity for slower, more controlled mobile scrolling
     });
     lenisRef.current = lenis;
 
