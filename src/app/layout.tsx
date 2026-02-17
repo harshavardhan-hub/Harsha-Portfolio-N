@@ -13,6 +13,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Harsha Vardhan Yanakandla | Creative Developer",
   description: "Creative Full Stack Developer building scalable AI-powered digital experiences.",
+  icons: {
+    icon: "https://res.cloudinary.com/drit9nkha/image/upload/v1709268964/samples/people/qlq8w1bk0qdlvkpycxty.jpg",
+  }
 };
 
 export default function RootLayout({

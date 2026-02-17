@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import ScrollyCanvas from "@/components/ui/ScrollyCanvas";
 import Overlay from "@/components/ui/Overlay";
 import Projects from "@/components/ui/Projects";
+import About from "@/components/ui/About";
 import Experience from "@/components/ui/Experience";
 import Skills from "@/components/ui/Skills";
 import Education from "@/components/ui/Education";
@@ -16,9 +17,11 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     const lenis = new Lenis();
+    lenisRef.current = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -29,13 +32,21 @@ export default function Home() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  const handleNavClick = (id: string) => {
+    const element = document.getElementById(id);
+    if (element && lenisRef.current) {
+      lenisRef.current.scrollTo(element);
+    }
+  };
 
   return (
     <main className="min-h-screen">
       <WelcomeLoader isLoading={!isLoaded} progress={progress} />
-      <Navbar />
+      <Navbar onNavClick={handleNavClick} />
       <div ref={containerRef} className="relative h-[800vh]">
         <ScrollyCanvas
           containerRef={containerRef}
@@ -45,8 +56,9 @@ export default function Home() {
         <Overlay />
       </div>
       <div className="relative z-20 bg-background">
-        <Projects />
+        <About />
         <Experience />
+        <Projects />
         <Skills />
         <Education />
         <Footer />

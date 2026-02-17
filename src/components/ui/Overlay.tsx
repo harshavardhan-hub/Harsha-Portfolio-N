@@ -3,6 +3,7 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useRef } from "react";
 
+
 export default function Overlay() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -19,17 +20,17 @@ export default function Overlay() {
 
   // Section 2: "Building scalable..."
   // ENTER: 0.12 -> 0.22
-  // HOLD:  0.22 -> 0.38 (Shorter hold to speed up S3 arrival)
-  // EXIT:  0.38 -> 0.44 (Exits fast)
-  const y2 = useTransform(scrollYProgress, [0.12, 0.22, 0.38, 0.44], ["100vh", "0vh", "0vh", "-100vh"]);
-  const o2 = useTransform(scrollYProgress, [0.12, 0.22, 0.38, 0.44], [0, 1, 1, 0]);
+  // HOLD:  0.22 -> 0.50 (Good hold time)
+  // EXIT:  0.50 -> 0.58 (Slower exit)
+  const y2 = useTransform(scrollYProgress, [0.12, 0.22, 0.50, 0.58], ["100vh", "0vh", "0vh", "-100vh"]);
+  const o2 = useTransform(scrollYProgress, [0.12, 0.22, 0.50, 0.58], [0, 1, 1, 0]);
 
   // Section 3: "Bridging design..."
-  // ENTER: 0.40 -> 0.50 (Starts AT 0.40 - OVERLAPPING with S2 exit)
-  // HOLD:  0.50 -> 0.95 (Maintains long hold)
+  // ENTER: 0.45 -> 0.58 (Starts early, overlapping with S2 exit)
+  // HOLD:  0.58 -> 0.95 (Long hold)
   // EXIT:  0.95 -> 1.00
-  const y3 = useTransform(scrollYProgress, [0.40, 0.50, 0.95, 1.00], ["100vh", "0vh", "0vh", "-100vh"]);
-  const o3 = useTransform(scrollYProgress, [0.40, 0.50, 0.95, 1.00], [0, 1, 1, 0]);
+  const y3 = useTransform(scrollYProgress, [0.45, 0.58, 0.95, 1.00], ["100vh", "0vh", "0vh", "-100vh"]);
+  const o3 = useTransform(scrollYProgress, [0.45, 0.58, 0.95, 1.00], [0, 1, 1, 0]);
 
   return (
     <div ref={ref} className="absolute inset-0 z-10 pointer-events-none">

@@ -77,14 +77,14 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
 export default function Projects() {
     return (
-        <section className="relative z-20 py-16 px-4 md:px-8 max-w-7xl mx-auto">
+        <section id="projects" className="relative z-20 py-16 px-4 md:px-8 max-w-7xl mx-auto">
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 className="mb-16"
             >
-                <h2 className="text-4xl md:text-6xl font-bold mb-6">Selected Works</h2>
+                <h2 className="text-4xl md:text-6xl font-bold mb-6">My Projects</h2>
                 <div className="h-1 w-24 bg-blue-500" />
             </motion.div>
 
