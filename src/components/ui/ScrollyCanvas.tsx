@@ -31,7 +31,7 @@ export default function ScrollyCanvas({ containerRef, onProgress, onLoaded }: Sc
     // Part 4: 120-158
 
     // Chunk definitions
-    const CHUNK_1_END = 39;
+    const CHUNK_PRIORITY_END = 79; // Parts 1 & 2 (0-79)
 
     const renderFrame = useCallback((index: number) => {
         const canvas = canvasRef.current;
@@ -87,14 +87,14 @@ export default function ScrollyCanvas({ containerRef, onProgress, onLoaded }: Sc
         let isMounted = true;
 
         const loadSequence = async () => {
-            // PART 1: Priority Load (Frames 0-39)
+            // PRIORITY LOAD (Frames 0-79) - Parts 1 & 2
             let loadedCount = 0;
-            const part1Count = CHUNK_1_END + 1;
+            const priorityCount = CHUNK_PRIORITY_END + 1;
 
-            const imagesV1: HTMLImageElement[] = [];
-            const part1Promises = [];
+            const imagesPriority: HTMLImageElement[] = [];
+            const priorityPromises = [];
 
-            for (let i = 0; i <= CHUNK_1_END; i++) {
+            for (let i = 0; i <= CHUNK_PRIORITY_END; i++) {
                 const img = new Image();
                 const frameIndex = i.toString().padStart(3, "0");
                 img.src = `/sequence/frame_${frameIndex}_delay-0.05s.png`;
@@ -103,27 +103,27 @@ export default function ScrollyCanvas({ containerRef, onProgress, onLoaded }: Sc
                     img.onload = () => {
                         if (!isMounted) return;
                         loadedCount++;
-                        onProgress?.((loadedCount / part1Count) * 100);
+                        onProgress?.((loadedCount / priorityCount) * 100);
                         resolve();
                     };
                     img.onerror = () => {
                         console.warn(`Failed frame ${i}`);
                         if (!isMounted) return;
                         loadedCount++;
-                        onProgress?.((loadedCount / part1Count) * 100);
+                        onProgress?.((loadedCount / priorityCount) * 100);
                         resolve();
                     };
                 });
-                part1Promises.push(p);
-                imagesV1.push(img);
+                priorityPromises.push(p);
+                imagesPriority.push(img);
             }
 
-            await Promise.all(part1Promises);
+            await Promise.all(priorityPromises);
 
             if (!isMounted) return;
 
-            // Part 1 Complete
-            imagesV1.forEach((img, idx) => {
+            // Priority Parts Complete
+            imagesPriority.forEach((img, idx) => {
                 imagesRef.current[idx] = img;
             });
 
@@ -141,14 +141,7 @@ export default function ScrollyCanvas({ containerRef, onProgress, onLoaded }: Sc
                 renderFrame(getFrameIndex(currentProgress));
             };
 
-            // BACKGROUND LOADING
-            if (isMounted) {
-                const chunk2 = await loadImagesChunk(40, 79);
-                if (!isMounted) return;
-                chunk2.forEach((img, idx) => { imagesRef.current[40 + idx] = img; });
-                updateCurrentView();
-            }
-
+            // BACKGROUND LOADING (Starts from 80)
             if (isMounted) {
                 const chunk3 = await loadImagesChunk(80, 119);
                 if (!isMounted) return;
